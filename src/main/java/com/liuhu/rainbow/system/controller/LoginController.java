@@ -107,7 +107,7 @@ public class LoginController {
     private void saveTokenToRedis(String token, HttpServletRequest request) throws Exception {
         String ip = IPUtil.getIpAddr(request);
         // redis 中存储这个加密 token，key = 前缀 + 加密 token + .ip
-        this.redisService.set(RainbowConstant.RAINBOW_TOKEN +token+ StringPool.DOT + ip,token,properties.getJwtTimeOut()*1000);
+        this.redisService.set(RainbowConstant.RAINBOW_TOKEN +token+ StringPool.DOT + ip,token, Long.valueOf(10*60*1000));
     }
 
     /**

@@ -121,7 +121,12 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public Long pexpire(String key, Long milliseconds) throws RedisConnectException {
-        return this.excuteByJedis(j -> j.pexpire(key, milliseconds));
+        return this.excuteByJedis(new JedisExecutor<Jedis, Long>() {
+            @Override
+            public Long excute(Jedis j) throws RedisConnectException {
+                return j.pexpire(key, milliseconds);
+            }
+        });
     }
 
     @Override
